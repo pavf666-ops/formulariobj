@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha Individual del Estudiante 2026-2027</title>
+     <style>
+        :root {
+            --verde-oscuro: #1e4a2f;
+            --verde-medio: #1e4a2f;
+            --verde-claro: #f4ebdd;
+            --marron-oscuro: #1e4a2f;
+            --marron-medio: #1e4a2f;
+            --marron-claro: #cfbc9a;
+            --blanco: #faf1e2;
+            --dorado: #c0a16b;
+            --sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --borde-radio: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #1e4a2f;
+            color: #1a1a1a;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .contenedor-principal {
+            width: 100%;
+            max-width: 1200px;
+            background: var(--blanco);
+            border-radius: var(--borde-radio);
+            box-shadow: var(--sombra);
+            overflow: hidden;
+            border: 1px solid var(--marron-claro);
+        }
+
+        /* Encabezado */
+        .encabezado {
+            background: var(--blanco);
+            border-bottom: 4px solid var(--dorado);
+        }
+
+        .imagen-encabezado {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* Pestañas de navegación */
+        .pestañas {
+            display: flex;
+            align-items: center;
+            background: #e8d9c5;
+            border-bottom: 2px solid var(--marron-medio);
+            flex-wrap: wrap;
+        }
+
+        .pestaña {
+            padding: 14px 24px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--marron-oscuro);
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            transition: background 0.3s, color 0.3s;
+            border-right: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .pestaña:hover {
+            background: var(--verde-medio);
+            color: var(--blanco);
+        }
+
+        .pestaña.activa {
+            background: var(--verde-oscuro);
+            color: var(--blanco);
+            border-bottom: 3px solid var(--dorado);
+        }
+
+        /* Formulario */
+        .formulario-contenedor {
+            padding: 25px 30px;
+            background: var(--blanco);
+        }
+
+        .seccion {
+            margin-bottom: 25px;
+            border: 1px solid var(--marron-claro);
+            border-radius: var(--borde-radio);
+            padding: 20px;
+            background: #f4ebdd;
+            position: relative;
+        }
+
+        .seccion-titulo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--blanco);
+            background: var(--marron-oscuro);
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .fila {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .campo {
+            flex: 1 1 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .campo label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--marron-oscuro);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .campo input,
+        .campo select,
+        .campo textarea {
+            padding: 9px 12px;
+            border: 1.5px solid var(--marron-claro);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background: var(--blanco);
+            color: #1a1a1a;
+        }
+
+        .campo input:focus,
+        .campo select:focus,
+        .campo textarea:focus {
+            outline: none;
+            border-color: var(--verde-medio);
+            box-shadow: 0 0 0 3px rgba(30, 74, 47, 0.2);
+        }
+
+        .campo input[readonly] {
+            background-color: #e7ddce;
+            cursor: not-allowed;
+            font-weight: 700;
+            color: var(--verde-oscuro);
+        }
+
+        .campo textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .contenedor-formulario-foto {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .contenido-formulario {
+            min-width: 0;
+            grid-column: 1;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .datos-informativos {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 220px;
+            column-gap: 25px;
+            align-items: start;
+        }
+
+        .datos-informativos > .seccion-titulo {
+            grid-column: 1 / -1;
+        }
+
+        .datos-informativos > .fila-apellidos,
+        .datos-informativos > .fila-nacimiento,
+        .datos-informativos > .fila-correo,
+        .datos-informativos > .fila-direccion,
+        .datos-informativos > .fila-referencia {
+            grid-column: 1;
+        }
+
+        .datos-informativos > .fila-continuacion {
+            grid-column: 1 / -1;
+        }
+
+        .datos-informativos > .fila-apellidos {
+            margin-bottom: 0;
+        }
+
+        .bloque-foto {
+            width: 100%;
+            justify-self: end;
+            padding: 15px;
+            border: 1px solid var(--marron-claro);
+            border-radius: 12px;
+            background: #faf0e1;
+            text-align: center;
+            align-self: start;
+            margin-top: 0;
+            padding-top: 10px;
+            grid-column: 2;
+            grid-row: 2 / span 5;
+        }
+
+        .seccion:first-of-type {
+            margin-top: 0;
+        }
+
+        .bloque-foto label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--marron-oscuro);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .foto-preview {
+            width: 100%;
+            height: 240px;
+            border-radius: 10px;
+            border: 2px dashed var(--marron-medio);
+            background: linear-gradient(135deg, #f4ebdd, #faf0e1);
+            object-fit: cover;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .input-foto {
+            width: 100%;
+            padding: 8px;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            border: 1px solid var(--marron-claro);
+            background: var(--blanco);
+        }
+
+        /* Grupos de checkboxes/radios */
+        .grupo-opciones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            padding-top: 4px;
+        }
+
+        .opcion {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+            color: var(--marron-oscuro);
+        }
+
+        .opcion input[type="checkbox"],
+        .opcion input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--verde-oscuro);
+            cursor: pointer;
+        }
+
+        /* Botones */
+        .acciones {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--marron-claro);
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primario {
+            background: var(--verde-oscuro);
+            color: var(--blanco);
+        }
+
+        .btn-primario:hover {
+            background: var(--verde-medio);
+            color: var(--blanco);
+        }
+
+        .btn-secundario {
+            background: #e2cfb0;
+            color: var(--marron-oscuro);
+        }
+
+        .btn-secundario:hover {
+            background: var(--marron-claro);
+        }
+
+        .btn-peligro {
+            background: #a33;
+            color: var(--blanco);
+        }
+
+        .btn-peligro:hover {
+            background: #822;
+        }
+
+        /* Lista de estudiantes */
+        .lista-estudiantes {
+            padding: 25px 30px;
+            background: var(--blanco);
+        }
+
+        .estado-listado {
+            margin: 12px 0;
+            color: var(--marron-oscuro);
+        }
+
+        .lista-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .contador {
+            font-weight: 700;
+            color: var(--marron-oscuro);
+            background: var(--marron-claro);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        thead {
+            background: var(--verde-oscuro);
+            color: var(--blanco);
+        }
+
+        th, td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--marron-claro);
+        }
+
+        th {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.8rem;
+        }
+
+        tbody tr:hover {
+            background: #f4ebdd;
+        }
+
+        .tabla-vacia {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-style: italic;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--marron-claro);
+            color: var(--marron-oscuro);
+        }
+
+        /* Ocultar/Mostrar secciones */
+        .vista {
+            display: none;
+        }
+
+        .vista.activa {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .datos-informativos {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .datos-informativos > .bloque-foto {
+                grid-column: 1;
+                grid-row: auto;
+                width: min(220px, 100%);
+                justify-self: start;
+                margin-bottom: 15px;
+            }
+
+            .datos-informativos > .fila-continuacion {
+                grid-column: 1;
+            }
+
+            .pestaña {
+                flex: 1 1 auto;
+                text-align: center;
+                padding: 12px 10px;
+                font-size: 0.9rem;
+            }
+
+            .fila {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .formulario-contenedor,
+            .lista-estudiantes {
+                padding: 15px;
+            }
+
+            .seccion {
+                padding: 15px;
+            }
+
+            table {
+                font-size: 0.8rem;
+            }
+
+            th, td {
+                padding: 8px 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .acciones {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Scroll para muchas filas */
+        .tabla-scroll {
+            max-height: 500px;
+            overflow-y: auto;
+            border-radius: 8px;
+            border: 1px solid var(--marron-claro);
+        }
+
+        .tabla-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .tabla-scroll::-webkit-scrollbar-track {
+            background: var(--marron-claro);
+            border-radius: 4px;
+        }
+
+        .tabla-scroll::-webkit-scrollbar-thumb {
+            background: var(--marron-medio);
+            border-radius: 4px;
+        }
+
+        .aviso-local {
+            padding: 10px 20px;
+            border-bottom: 1px solid var(--marron-claro);
+            background: var(--verde-claro);
+            color: var(--marron-oscuro);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="contenedor-principal">
+    <!-- ENCABEZADO -->
+    <header class="encabezado">
+        <img src="Encabezadobj.png" alt="Unidad Educativa Fiscal Benito Juárez, año lectivo 2026–2027" class="imagen-encabezado">
+    </header>
+
+    <!-- PESTAÑAS -->
+    <nav class="pestañas">
+        <button class="pestaña activa" onclick="cambiarVista('formulario')">📝 Ingresar Estudiante</button>
+        <button id="pestanaListado" class="pestaña" onclick="cambiarVista('lista')">📋 Listado (0/50)</button>
+    </nav>
+    <p class="aviso-local" role="note">Las fichas y fotografías se guardan solo en este navegador y no se sincronizan.</p>
+
+    <!-- VISTA FORMULARIO -->
+    <div id="vista-formulario" class="vista activa">
+        <div class="formulario-contenedor">
+            <form id="formEstudiante" onsubmit="guardarEstudiante(event)">
+
+                <!-- DATOS INFORMATIVOS -->
+                <div class="seccion datos-informativos">
+                    <div class="seccion-titulo">DATOS INFORMATIVOS</div>
+                    <aside class="bloque-foto">
+                        <label for="fotoEstudiante">Fotografía</label>
+                        <img id="fotoPreview" class="foto-preview" alt="Vista previa" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='240'%3E%3Crect width='300' height='240' fill='%23f2e8dc'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='22' fill='%237a5a3b' font-family='Arial'%3EFoto%3C/text%3E%3C/svg%3E">
+                        <input type="file" id="fotoEstudiante" class="input-foto" accept="image/*" onchange="previsualizarFoto(event)">
+                    </aside>
+                    <div class="fila fila-apellidos">
+                        <div class="campo" style="flex: 2 1 300px;">
+                            <label>Apellidos y Nombres *</label>
+                            <input type="text" id="apellidosNombres" required placeholder="Ej: Pérez Gómez Juan Carlos">
+                        </div>
+                    </div>
+                    <div class="fila fila-nacimiento">
+                        <div class="campo" style="flex: 2 1 250px;">
+                            <label>Lugar de Nacimiento</label>
+                            <input type="text" id="lugarNac" placeholder="Ciudad / País">
+                        </div>
+                        <div class="campo" style="flex: 1 1 180px;">
+                            <label>Fecha de Nacimiento</label>
+                            <input type="date" id="fechaNac" onchange="calcularEdad()">
+                        </div>
+                        <div class="campo" style="flex: 0 1 120px;">
+                            <label>Edad</label>
+                            <input type="text" id="edad" readonly placeholder="Edad">
+                        </div>
+                        <div class="campo">
+                            <label>Cédula de Identidad</label>
+                            <input type="text" id="cedula" placeholder="0000000000">
+                        </div>
+                    </div>
+                    <div class="fila fila-correo">
+                        <div class="campo" style="flex: 2 1 300px;">
+                            <label>Correo Electrónico</label>
+                            <input type="email" id="correo" placeholder="estudiante@correo.com">
+                        </div>
+                    </div>
+                    <div class="fila fila-direccion">
+                        <div class="campo" style="flex: 2 1 300px;">
+                            <label>Domicilio: Calle Principal</label>
+                            <input type="text" id="callePrincipal" placeholder="Calle principal">
+                        </div>
+                        <div class="campo">
+                            <label>No.</label>
+                            <input type="text" id="numeroCasa" placeholder="Número">
+                        </div>
+                        <div class="campo">
+                            <label>Calle Secundaria</label>
+                            <input type="text" id="calleSecundaria" placeholder="Calle secundaria">
+                        </div>
+                    </div>
+                    <div class="fila fila-referencia">
+                        <div class="campo" style="flex: 2 1 300px;">
+                            <label>Referencia</label>
+                            <input type="text" id="referencia" placeholder="Referencia del domicilio">
+                        </div>
+                        <div class="campo">
+                            <label>Barrio o Ciudadela</label>
+                            <input type="text" id="barrio" placeholder="Barrio / Ciudadela">
+                        </div>
+                    </div>
+                    <div class="fila fila-continuacion">
+                        <div class="campo">
+                            <label>Teléfono Celular</label>
+                            <input type="tel" id="celular" placeholder="0999999999">
+                        </div>
+                        <div class="campo">
+                            <label>Teléfono Convencional</label>
+                            <input type="tel" id="convencional" placeholder="022999999">
+                        </div>
+                        <div class="campo">
+                            <label>Tipo de Sangre</label>
+                            <select id="tipoSangre">
+                                <option value="">Seleccione...</option>
+                                <option>A+</option><option>A-</option>
+                                <option>B+</option><option>B-</option>
+                                <option>AB+</option><option>AB-</option>
+                                <option>O+</option><option>O-</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fila fila-continuacion">
+                        <div class="campo">
+                            <label>¿Padece alguna enfermedad?</label>
+                            <div class="grupo-opciones">
+                                <label class="opcion"><input type="radio" name="enfermedad" value="SI"> SI</label>
+                                <label class="opcion"><input type="radio" name="enfermedad" value="NO" checked> NO</label>
+                            </div>
+                        </div>
+                        <div class="campo" style="flex: 2 1 300px;">
+                            <label>¿Cuál?</label>
+                            <input type="text" id="cualEnfermedad" placeholder="Especifique enfermedad">
+                        </div>
+                    </div>
+                    <div class="fila fila-continuacion">
+                        <div class="campo" style="flex: 2 1 400px;">
+                            <label>¿Qué medicamento toma y con qué frecuencia?</label>
+                            <textarea id="medicamentos" placeholder="Medicamento y frecuencia..."></textarea>
+                        </div>
+                    </div>
+                    <div class="fila fila-continuacion">
+                        <div class="campo" style="flex: 2 1 400px;">
+                            <label>Indique si tiene alguna Necesidad Educativa Especial</label>
+                            <div class="grupo-opciones">
+                                <label class="opcion"><input type="checkbox" id="neeFisica" value="FISICA"> FÍSICA</label>
+                                <label class="opcion"><input type="checkbox" id="neeIntelectual" value="INTELECTUAL"> INTELECTUAL</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fila fila-continuacion">
+                        <div class="campo" style="flex: 2 1 300px;">
+                            <label>Institución Educativa de Procedencia</label>
+                            <input type="text" id="institucionProcedencia" placeholder="Nombre de la institución">
+                        </div>
+                        <div class="campo">
+                            <label>Nivel / Subnivel</label>
+                            <input type="text" id="nivel" placeholder="Ej: Básica Superior">
+                        </div>
+                    </div>
+                    <div class="fila fila-continuacion">
+                        <div class="campo">
+                            <label>Curso</label>
+                            <select id="curso">
+                                <option value="">Seleccione...</option>
+                                <option value="Primero">Primero</option>
+                                <option value="Segundo">Segundo</option>
+                                <option value="Tercero">Tercero</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label>Paralelo</label>
+                            <select id="paralelo">
+                                <option value="">Seleccione...</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+                                <option value="H">H</option>
+                                <option value="I">I</option>
+                                <option value="J">J</option>
+                                <option value="K">K</option>
+                                <option value="L">L</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label>Jornada</label>
+                            <select id="jornada">
+                                <option value="">Seleccione...</option>
+                                <option>Matutina</option>
+                                <option>Vespertina</option>
+                                <option>Nocturna</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label>Especialidad (si corresponde)</label>
+                            <select id="especialidad">
+                                <option value="">Seleccione...</option>
+                                <option value="BGU">BGU</option>
+                                <option value="CONTABILIDAD">CONTABILIDAD</option>
+                                <option value="INFORMATICA">INFORMATICA</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTACTO DE EMERGENCIA -->
+                <div class="seccion">
+                    <div class="seccion-titulo">CONTACTO DE EMERGENCIA</div>
+                    <div class="fila">
+                        <div class="campo" style="flex: 2 1 250px;">
+                            <label>Nombres y Apellidos</label>
+                            <input type="text" id="emergenciaNombres" placeholder="Nombre completo">
+                        </div>
+                        <div class="campo">
+                            <label>Parentesco</label>
+                            <input type="text" id="emergenciaParentesco" placeholder="Ej: Madre">
+                        </div>
+                        <div class="campo">
+                            <label>Teléfono Principal</label>
+                            <input type="tel" id="emergenciaTelPrincipal" placeholder="0999999999">
+                        </div>
+                        <div class="campo">
+                            <label>Teléfono Alternativo</label>
+                            <input type="tel" id="emergenciaTelAlternativo" placeholder="0999999999">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DATOS DEL PADRE -->
+                <div class="seccion">
+                    <div class="seccion-titulo">DATOS DEL PADRE</div>
+                    <div class="fila">
+                        <div class="campo" style="flex: 2 1 300px;">
+                            <label>Apellidos y Nombres</label>
+                            <input type="text" id="padreNombres" placeholder="Nombre completo del padre">
+                        </div>
+                        <div class="campo" style="flex: 1 1 160px;">
+                            <label>Fecha de Nacimiento</label>
+                            <input type="date" id="padreFechaNac" onchange="calcularEdadDesdeFecha('padreFechaNac', 'padreEdad')">
+                        </div>
+                        <div class="campo" style="flex: 0 1 110px;">
+                            <label>Edad</label>
+                            <input type="text" id="padreEdad" readonly placeholder="Se calcula">
+                        </div>
+                        <div class="campo">
+                            <label>CC</label>
+                            <input type="text" id="padreCC" placeholder="Cédula">
+                        </div>
+                        <div class="campo">
+                            <label>Estado Civil</label>
+                            <select id="padreEstadoCivil">
+                                <option value="">Seleccione...</option>
+                                <option>Soltero/a</option>
+                                <option>Casado/a</option>
+                                <option>Divorciado/a</option>
+                                <option>Viudo/a</option>
+                                <option>Unión Libre</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label>Celular</label>
+                            <input type="tel" id="padreCelular" placeholder="0999999999">
+                        </div>
+                    </div>
+                    <div class="fila">
+                        <div class="campo" style="flex: 2 1 300px;">
+                            <label>Dirección de Correo Electrónico</label>
+                            <input type="email" id="padreCorreo" placeholder="padre@correo.com">
+                        </div>
+                        <div class="campo">
+                            <label>Instrucción</label>
+                            <select id="padreInstruccion">
+                                <option value="">Seleccione...</option>
+                                <option>Básica</option>
+                                <option>Media</option>
+                                <option>Superior</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fila">
+                        <div class="campo" style="flex: 2 1 250px;">
+                            <label>Profesión / Ocupación</label>
+                            <input type="text" id="padreProfesion" placeholder="Profesión u ocupación">
+                        </div>
+                        <div class="campo" style="flex: 2 1 250px;">
+                            <label>Lugar de Trabajo</label>
+                            <input type="text" id="padreLugarTrabajo" placeholder="Lugar de trabajo">
+                        </div>
+                        <div class="campo">
+                            <label>Teléfono</label>
+                            <input type="tel" id="padreTelefono" placeholder="022999999">
+                        </div>
+                    </div>
+                    <div class="fila">
+                        <div class="campo">
+                            <label>Enfermedades Actuales</label>
+                            <div class="grupo-opciones">
+                                <label class="opcion"><input type="radio" name="padreEnfermedad" value="SI"> SI</label>
+                                <label class="opcion"><input type="radio" name="padreEnfermedad" value="NO" checked> NO</label>
+                            </div>
+                        </div>
+                        <div class="campo">
+                            <label>Con Tratamiento</label>
+                            <div class="grupo-opciones">
+                                <label class="opcion"><input type="radio" name="padreTratamiento" value="SI"> SI</label>
+                                <label class="opcion"><input type="radio" name="padreTratamiento" value="NO" checked> NO</label>
+                            </div>
+                        </div>
+                        <div class="campo" style="flex: 2 1 250px;">
+                            <label>¿Cuáles?</label>
+                            <input type="text" id="padreCualesEnfermedades" placeholder="Especifique enfermedades">
+                        </div>
+                    </div>
+                    <div class="fila">
+                        <div class="campo">
+                            <label>Si el padre es fallecido, causa</label>
+                            <input type="text" id="padreCausaFallecimiento" placeholder="Causa">
+                        </div>
+                        <div class="campo" style="flex: 0 1 120px;">
+                            <label>Año</label>
+                            <input type="text" id="padreAnioFallecimiento" placeholder="AAAA">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DATOS DE LA MADRE -->
+                <div class="seccion">
+                    <div class="seccion-titulo">DATOS DE LA MADRE</div>
+                    <div class="fila">
+                        <div class="campo" style="flex: 2 1 300px;">
+                            <label>Apellidos y Nombres</label>
+                            <input type="text" id="madreNombres" placeholder="Nombre completo de la madre">
+                        </div>
+                        <div class="campo" style="flex: 1 1 160px;">
+                            <label>Fecha de Nacimiento</label>
+                            <input type="date" id="madreFechaNac" onchange="calcularEdadDesdeFecha('madreFechaNac', 'madreEdad')">
+                        </div>
+                        <div class="campo" style="flex: 0 1 110px;">
+                            <label>Edad</label>
+                            <input type="text" id="madreEdad" readonly placeholder="Se calcula">
+                        </div>
+                        <div class="campo">
+                            <label>CC</label>
+                            <input type="text" id="madreCC" placeholder="Cédula">
+                        </div>
+                        <div class="campo">
+                            <label>Estado Civil</label>
+                            <select id="madreEstadoCivil">
+                                <option value="">Seleccione...</option>
+                                <option>Soltero/a</option>
+                                <option>Casado/a</option>
+                                <option>Divorciado/a</option>
+                                <option>Viudo/a</option>
+                                <option>Unión Libre</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label>Celular</label>
+                            <input type="tel" id="madreCelular" placeholder="0999999999">
+                        </div>
+                    </div>
+                    <div class="fila">
+                        <div class="campo" style="flex: 2 1 300px;">
+                            <label>Dirección de Correo Electrónico</label>
+                            <input type="email" id="madreCorreo" placeholder="madre@correo.com">
+                        </div>
+                        <div class="campo">
+                            <label>Instrucción</label>
+                            <select id="madreInstruccion">
+                                <option value="">Seleccione...</option>
+                                <option>Básica</option>
+                                <option>Media</option>
+                                <option>Superior</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fila">
+                        <div class="campo" style="flex: 2 1 250px;">
+                            <label>Profesión / Ocupación</label>
+                            <input type="text" id="madreProfesion" placeholder="Profesión u ocupación">
+                        </div>
+                        <div class="campo" style="flex: 2 1 250px;">
+                            <label>Lugar de Trabajo</label>
+                            <input type="text" id="madreLugarTrabajo" placeholder="Lugar de trabajo">
+                        </div>
+                        <div class="campo">
+                            <label>Teléfono</label>
+                            <input type="tel" id="madreTelefono" placeholder="022999999">
+                        </div>
+                    </div>
+                    <div class="fila">
+                        <div class="campo">
+                            <label>Enfermedades Actuales</label>
+                            <div class="grupo-opciones">
+                                <label class="opcion"><input type="radio" name="madreEnfermedad" value="SI"> SI</label>
+                                <label class="opcion"><input type="radio" name="madreEnfermedad" value="NO" checked> NO</label>
+                            </div>
+                        </div>
+                        <div class="campo">
+                            <label>Con Tratamiento</label>
+                            <div class="grupo-opciones">
+                                <label class="opcion"><input type="radio" name="madreTratamiento" value="SI"> SI</label>
+                                <label class="opcion"><input type="radio" name="madreTratamiento" value="NO" checked> NO</label>
+                            </div>
+                        </div>
+                        <div class="campo" style="flex: 2 1 250px;">
+                            <label>¿Cuáles?</label>
+                            <input type="text" id="madreCualesEnfermedades" placeholder="Especifique enfermedades">
+                        </div>
+                    </div>
+                    <div class="fila">
+                        <div class="campo">
+                            <label>Si la madre es fallecida, causa</label>
+                            <input type="text" id="madreCausaFallecimiento" placeholder="Causa">
+                        </div>
+                        <div class="campo" style="flex: 0 1 120px;">
+                            <label>Año</label>
+                            <input type="text" id="madreAnioFallecimiento" placeholder="AAAA">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DATOS DEL REPRESENTANTE -->
+                <div class="seccion">
+                    <div class="seccion-titulo">DATOS DEL REPRESENTANTE</div>
+                    <div class="fila">
+                        <div class="campo" style="flex: 1 1 220px;">
+                            <label>¿Quién es el representante?</label>
+                            <select id="representanteTipo" onchange="sincronizarRepresentante()">
+                                <option value="OTRO">Otro</option>
+                                <option value="PADRE">Padre</option>
+                                <option value="MADRE">Madre</option>
+                            </select>
+                        </div>
+                        <div class="campo" style="flex: 2 1 300px;">
+                            <label>Apellidos y Nombres</label>
+                            <input type="text" id="representanteNombres" placeholder="Nombre completo del representante">
+                        </div>
+                        <div class="campo" style="flex: 1 1 160px;">
+                            <label>Fecha de Nacimiento</label>
+                            <input type="date" id="representanteFechaNac" onchange="calcularEdadDesdeFecha('representanteFechaNac', 'representanteEdad')">
+                        </div>
+                        <div class="campo" style="flex: 0 1 110px;">
+                            <label>Edad</label>
+                            <input type="text" id="representanteEdad" readonly placeholder="Se calcula">
+                        </div>
+                        <div class="campo">
+                            <label>CC</label>
+                            <input type="text" id="representanteCC" placeholder="Cédula">
+                        </div>
+                        <div class="campo">
+                            <label>Estado Civil</label>
+                            <select id="representanteEstadoCivil">
+                                <option value="">Seleccione...</option>
+                                <option>Soltero/a</option>
+                                <option>Casado/a</option>
+                                <option>Divorciado/a</option>
+                                <option>Viudo/a</option>
+                                <option>Unión Libre</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label>Celular</label>
+                            <input type="tel" id="representanteCelular" placeholder="0999999999">
+                        </div>
+                    </div>
+                    <div class="fila">
+                        <div class="campo" style="flex: 2 1 300px;">
+                            <label>Dirección de Correo Electrónico</label>
+                            <input type="email" id="representanteCorreo" placeholder="representante@correo.com">
+                        </div>
+                        <div class="campo" style="flex: 2 1 200px;">
+                            <label>¿Qué parentesco tiene con usted?</label>
+                            <input type="text" id="representanteParentesco" placeholder="Ej: Tío, Abuelo, etc.">
+                        </div>
+                    </div>
+                    <div class="fila">
+                        <div class="campo">
+                            <label>Instrucción</label>
+                            <select id="representanteInstruccion">
+                                <option value="">Seleccione...</option>
+                                <option>Básica</option>
+                                <option>Media</option>
+                                <option>Superior</option>
+                            </select>
+                        </div>
+                        <div class="campo" style="flex: 2 1 250px;">
+                            <label>Profesión / Ocupación</label>
+                            <input type="text" id="representanteProfesion" placeholder="Profesión u ocupación">
+                        </div>
+                        <div class="campo" style="flex: 2 1 250px;">
+                            <label>Lugar de Trabajo</label>
+                            <input type="text" id="representanteLugarTrabajo" placeholder="Lugar de trabajo">
+                        </div>
+                        <div class="campo">
+                            <label>Teléfono</label>
+                            <input type="tel" id="representanteTelefono" placeholder="022999999">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INTEGRANTES DE LA FAMILIA -->
+                <div class="seccion">
+                    <div class="seccion-titulo">INTEGRANTES DE LA FAMILIA</div>
+                    <div class="fila">
+                        <div class="campo">
+                            <label>Nro. de hermanos (incluido usted)</label>
+                            <input type="number" id="numHermanos" min="1" max="20" placeholder="Número">
+                        </div>
+                        <div class="campo">
+                            <label>Lugar que ocupa entre los hermanos</label>
+                            <input type="text" id="lugarHermanos" placeholder="Ej: 2do">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="acciones">
+                    <button type="submit" class="btn btn-primario">💾 Guardar Estudiante</button>
+                    <button type="button" class="btn btn-secundario" onclick="limpiarFormulario()">🧹 Limpiar</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <section id="vista-lista" class="vista lista-estudiantes">
+        <div class="lista-header">
+            <h2>Estudiantes registrados</h2>
+            <span id="contadorEstudiantes" class="contador">0/50 estudiantes</span>
+        </div>
+        <p id="estadoListado" class="estado-listado" role="status" aria-live="polite"></p>
+        <div class="tabla-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Apellidos y nombres</th>
+                        <th>Curso</th>
+                        <th>Paralelo</th>
+                        <th>Especialidad</th>
+                        <th>Fecha de ingreso</th>
+                    </tr>
+                </thead>
+                <tbody id="filasEstudiantes"></tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<script>
+    const NOMBRE_BASE_DATOS = 'ficha-estudiante';
+    const ALMACEN_REGISTROS = 'estudiantes';
+    const LIMITE_ESTUDIANTES = 50;
+    const FOTO_INICIAL = document.getElementById('fotoPreview')?.src || '';
+    let registrosActuales = [];
+
+    function abrirBaseDatos() {
+        return new Promise((resolve, reject) => {
+            const solicitud = indexedDB.open(NOMBRE_BASE_DATOS, 1);
+            solicitud.onupgradeneeded = () => {
+                solicitud.result.createObjectStore(ALMACEN_REGISTROS, { keyPath: 'id' });
+            };
+            solicitud.onsuccess = () => resolve(solicitud.result);
+            solicitud.onerror = () => reject(solicitud.error);
+        });
+    }
+
+    async function obtenerRegistrosGuardados() {
+        const db = await abrirBaseDatos();
+        return new Promise((resolve, reject) => {
+            const transaccion = db.transaction(ALMACEN_REGISTROS, 'readonly');
+            const solicitud = transaccion.objectStore(ALMACEN_REGISTROS).getAll();
+            solicitud.onsuccess = () => {
+                const registros = solicitud.result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                resolve(registros);
+            };
+            solicitud.onerror = () => reject(solicitud.error);
+            transaccion.oncomplete = () => db.close();
+            transaccion.onerror = () => {
+                db.close();
+                reject(transaccion.error);
+            };
+        });
+    }
+
+    async function guardarRegistroGuardado(registro) {
+        const db = await abrirBaseDatos();
+        return new Promise((resolve, reject) => {
+            const transaccion = db.transaction(ALMACEN_REGISTROS, 'readwrite');
+            const almacen = transaccion.objectStore(ALMACEN_REGISTROS);
+            let errorGuardado = null;
+
+            transaccion.oncomplete = () => {
+                db.close();
+                resolve();
+            };
+            transaccion.onabort = () => {
+                db.close();
+                reject(errorGuardado || transaccion.error || new Error('No se pudo guardar la ficha.'));
+            };
+
+            const solicitudConteo = almacen.count();
+            solicitudConteo.onsuccess = () => {
+                if (solicitudConteo.result >= LIMITE_ESTUDIANTES) {
+                    errorGuardado = new Error('Se alcanzó el límite de 50 estudiantes.');
+                    transaccion.abort();
+                    return;
+                }
+                almacen.add(registro);
+            };
+            solicitudConteo.onerror = () => {
+                errorGuardado = solicitudConteo.error;
+                transaccion.abort();
+            };
+        });
+    }
+
+    function calcularEdadDesdeFecha(fechaInputId, edadInputId) {
+        const fechaNacimientoInput = document.getElementById(fechaInputId);
+        const edadInput = document.getElementById(edadInputId);
+
+        if (!fechaNacimientoInput || !edadInput) return;
+
+        const fechaSeleccionada = fechaNacimientoInput.value;
+
+        if (!fechaSeleccionada) {
+            edadInput.value = '';
+            return;
+        }
+
+        const fechaNac = new Date(fechaSeleccionada + 'T00:00:00');
+        const hoy = new Date();
+
+        if (isNaN(fechaNac.getTime()) || fechaNac > hoy) {
+            edadInput.value = 'Fecha inválida';
+            return;
+        }
+
+        let anios = hoy.getFullYear() - fechaNac.getFullYear();
+        let meses = hoy.getMonth() - fechaNac.getMonth();
+        let dias = hoy.getDate() - fechaNac.getDate();
+
+        if (dias < 0) {
+            const ultimoDiaMesAnterior = new Date(hoy.getFullYear(), hoy.getMonth(), 0).getDate();
+            dias += ultimoDiaMesAnterior;
+            meses--;
+        }
+
+        if (meses < 0) {
+            anios--;
+            meses += 12;
+        }
+
+        const partes = [];
+
+        if (anios > 0) {
+            partes.push(`${anios} ${anios === 1 ? 'año' : 'años'}`);
+        }
+
+        if (meses > 0 || anios > 0) {
+            partes.push(`${meses} ${meses === 1 ? 'mes' : 'meses'}`);
+        }
+
+        if (dias > 0 || (anios === 0 && meses === 0)) {
+            partes.push(`${dias} ${dias === 1 ? 'día' : 'días'}`);
+        }
+
+        edadInput.value = partes.length ? partes.join(', ') : '0 años, 0 meses y 0 días';
+    }
+
+    function calcularEdad() {
+        calcularEdadDesdeFecha('fechaNac', 'edad');
+    }
+
+    function previsualizarFoto(event) {
+        const input = event.target;
+        const preview = document.getElementById('fotoPreview');
+
+        if (input.files && input.files[0]) {
+            const lector = new FileReader();
+            lector.onload = function(e) {
+                preview.src = e.target.result;
+            };
+            lector.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function sincronizarRepresentante() {
+        const tipo = document.getElementById('representanteTipo')?.value || 'OTRO';
+        const padre = {
+            nombres: document.getElementById('padreNombres')?.value || '',
+            fechaNac: document.getElementById('padreFechaNac')?.value || '',
+            edad: document.getElementById('padreEdad')?.value || '',
+            cc: document.getElementById('padreCC')?.value || '',
+            estadoCivil: document.getElementById('padreEstadoCivil')?.value || '',
+            celular: document.getElementById('padreCelular')?.value || '',
+            correo: document.getElementById('padreCorreo')?.value || '',
+            instruccion: document.getElementById('padreInstruccion')?.value || '',
+            profesion: document.getElementById('padreProfesion')?.value || '',
+            lugarTrabajo: document.getElementById('padreLugarTrabajo')?.value || '',
+            telefono: document.getElementById('padreTelefono')?.value || ''
+        };
+
+        const madre = {
+            nombres: document.getElementById('madreNombres')?.value || '',
+            fechaNac: document.getElementById('madreFechaNac')?.value || '',
+            edad: document.getElementById('madreEdad')?.value || '',
+            cc: document.getElementById('madreCC')?.value || '',
+            estadoCivil: document.getElementById('madreEstadoCivil')?.value || '',
+            celular: document.getElementById('madreCelular')?.value || '',
+            correo: document.getElementById('madreCorreo')?.value || '',
+            instruccion: document.getElementById('madreInstruccion')?.value || '',
+            profesion: document.getElementById('madreProfesion')?.value || '',
+            lugarTrabajo: document.getElementById('madreLugarTrabajo')?.value || '',
+            telefono: document.getElementById('madreTelefono')?.value || ''
+        };
+
+        const representante = tipo === 'PADRE' ? padre : tipo === 'MADRE' ? madre : null;
+
+        document.getElementById('representanteNombres').value = representante ? representante.nombres : '';
+        document.getElementById('representanteFechaNac').value = representante ? representante.fechaNac : '';
+        document.getElementById('representanteEdad').value = representante ? representante.edad : '';
+        document.getElementById('representanteCC').value = representante ? representante.cc : '';
+        document.getElementById('representanteEstadoCivil').value = representante ? representante.estadoCivil : '';
+        document.getElementById('representanteCelular').value = representante ? representante.celular : '';
+        document.getElementById('representanteCorreo').value = representante ? representante.correo : '';
+        document.getElementById('representanteInstruccion').value = representante ? representante.instruccion : '';
+        document.getElementById('representanteProfesion').value = representante ? representante.profesion : '';
+        document.getElementById('representanteLugarTrabajo').value = representante ? representante.lugarTrabajo : '';
+        document.getElementById('representanteTelefono').value = representante ? representante.telefono : '';
+        document.getElementById('representanteParentesco').value = tipo === 'PADRE' ? 'Padre' : tipo === 'MADRE' ? 'Madre' : '';
+
+        if (!representante) {
+            document.getElementById('representanteFechaNac').value = '';
+            document.getElementById('representanteEdad').value = '';
+        }
+    }
+
+    function cambiarVista(nombreVista) {
+        document.querySelectorAll('.vista').forEach((vista) => {
+            vista.classList.toggle('activa', vista.id === `vista-${nombreVista}`);
+        });
+        document.querySelectorAll('.pestaña').forEach((pestana) => {
+            pestana.classList.toggle('activa', pestana.textContent.includes(nombreVista === 'lista' ? 'Listado' : 'Ingresar'));
+        });
+        if (nombreVista === 'lista') cargarListado();
+    }
+
+    async function cargarListado() {
+        const estado = document.getElementById('estadoListado');
+        const tabla = document.getElementById('filasEstudiantes');
+        estado.textContent = 'Cargando estudiantes...';
+
+        try {
+            registrosActuales = await obtenerRegistrosGuardados();
+            tabla.replaceChildren();
+            registrosActuales.forEach((registro) => {
+                const datos = registro.student_data || {};
+                const fila = document.createElement('tr');
+                [
+                    datos.apellidosNombres || '',
+                    datos.curso || '',
+                    datos.paralelo || '',
+                    datos.especialidad || '',
+                    new Date(registro.created_at).toLocaleDateString('es-EC')
+                ].forEach((valor) => {
+                    const celda = document.createElement('td');
+                    celda.textContent = valor;
+                    fila.appendChild(celda);
+                });
+                tabla.appendChild(fila);
+            });
+
+            const total = registrosActuales.length;
+            document.getElementById('contadorEstudiantes').textContent = `${total}/50 estudiantes`;
+            document.getElementById('pestanaListado').textContent = `📋 Listado (${total}/50)`;
+            const botonGuardar = document.querySelector('#formEstudiante button[type="submit"]');
+            if (botonGuardar) {
+                botonGuardar.disabled = total >= LIMITE_ESTUDIANTES;
+                botonGuardar.title = total >= LIMITE_ESTUDIANTES ? 'Ya se alcanzó el límite de 50 estudiantes.' : '';
+            }
+            estado.textContent = total ? '' : 'Aún no hay estudiantes registrados.';
+        } catch (error) {
+            console.error('Error al cargar las fichas locales:', error);
+            estado.textContent = 'No se pudo abrir el almacenamiento local de este navegador.';
+        }
+    }
+
+    function obtenerDatosFormulario(formulario) {
+        const datos = {};
+        formulario.querySelectorAll('input, select, textarea').forEach((campo) => {
+            if (['file', 'submit', 'button', 'reset'].includes(campo.type)) return;
+            const clave = campo.id || campo.name;
+            if (!clave) return;
+            if (campo.type === 'radio') {
+                if (campo.checked) datos[clave] = campo.value;
+            } else if (campo.type === 'checkbox') {
+                datos[clave] = campo.checked;
+            } else {
+                datos[clave] = campo.value;
+            }
+        });
+        return datos;
+    }
+
+    async function guardarEstudiante(event) {
+        event.preventDefault();
+        if (registrosActuales.length >= 50) {
+            alert('Se alcanzó el límite de 50 estudiantes.');
+            return;
+        }
+
+        const formulario = document.getElementById('formEstudiante');
+        const botonGuardar = formulario.querySelector('button[type="submit"]');
+        const archivoFoto = document.getElementById('fotoEstudiante').files[0];
+        if (archivoFoto && (!['image/jpeg', 'image/png', 'image/webp'].includes(archivoFoto.type) || archivoFoto.size > 5 * 1024 * 1024)) {
+            alert('La fotografía debe ser JPG, PNG o WEBP y pesar como máximo 5 MB.');
+            return;
+        }
+
+        botonGuardar.disabled = true;
+        botonGuardar.textContent = 'Guardando...';
+
+        try {
+            let photoData = null;
+            if (archivoFoto) {
+                photoData = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.onerror = () => reject(reader.error);
+                    reader.readAsDataURL(archivoFoto);
+                });
+            }
+
+            const payload = {
+                id: crypto.randomUUID(),
+                created_at: new Date().toISOString(),
+                student_data: obtenerDatosFormulario(formulario),
+                photo: photoData
+            };
+
+            const respuesta = await fetch('guardar_estudiante.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const resultado = await respuesta.json();
+            if (resultado.success) {
+                alert('Estudiante guardado en la base de datos.');
+                limpiarFormulario();
+            } else {
+                alert('Error: ' + (resultado.error || 'No se pudo guardar el estudiante.'));
+            }
+        } catch (error) {
+            console.error('Error de red:', error);
+            alert('No se pudo conectar con el servidor.');
+        } finally {
+            botonGuardar.disabled = registrosActuales.length >= LIMITE_ESTUDIANTES;
+            botonGuardar.textContent = '💾 Guardar Estudiante';
+        }
+    }
+
+    function limpiarFormulario() {
+        const formulario = document.getElementById('formEstudiante');
+        formulario.reset();
+        document.getElementById('fotoPreview').src = FOTO_INICIAL;
+        calcularEdad();
+        ['padreFechaNac', 'madreFechaNac', 'representanteFechaNac'].forEach((id) => {
+            calcularEdadDesdeFecha(id, id.replace('FechaNac', 'Edad'));
+        });
+        sincronizarRepresentante();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const fechaNacimientoInput = document.getElementById('fechaNac');
+        if (fechaNacimientoInput) {
+            fechaNacimientoInput.addEventListener('input', calcularEdad);
+            fechaNacimientoInput.addEventListener('change', calcularEdad);
+            calcularEdad();
+        }
+
+        ['padreFechaNac', 'madreFechaNac', 'representanteFechaNac'].forEach((id) => {
+            const input = document.getElementById(id);
+            if (!input) return;
+
+            const edadId = id.replace('FechaNac', 'Edad');
+            input.addEventListener('input', () => calcularEdadDesdeFecha(id, edadId));
+            input.addEventListener('change', () => calcularEdadDesdeFecha(id, edadId));
+            calcularEdadDesdeFecha(id, edadId);
+        });
+
+        ['padreNombres','padreFechaNac','padreEdad','padreCC','padreEstadoCivil','padreCelular','padreCorreo','padreInstruccion','padreProfesion','padreLugarTrabajo','padreTelefono',
+         'madreNombres','madreFechaNac','madreEdad','madreCC','madreEstadoCivil','madreCelular','madreCorreo','madreInstruccion','madreProfesion','madreLugarTrabajo','madreTelefono'].forEach((id) => {
+            const input = document.getElementById(id);
+            if (!input) return;
+            input.addEventListener('input', sincronizarRepresentante);
+            input.addEventListener('change', sincronizarRepresentante);
+        });
+
+        const representanteTipo = document.getElementById('representanteTipo');
+        if (representanteTipo) {
+            representanteTipo.addEventListener('change', sincronizarRepresentante);
+        }
+
+        sincronizarRepresentante();
+        cargarListado();
+    });
+</script>
+</body>
+</html>
