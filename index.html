@@ -6,14 +6,14 @@
     <title>Ficha Individual del Estudiante 2026-2027</title>
      <style>
         :root {
-            /* Paleta verde + caqui */
-            --verde-oscuro: #2E7D32;   /* verde bosque principal */
-            --verde-medio:  #388E3C;   /* verde medio */
-            --verde-claro:  #A5D6A7;   /* verde suave */
-            --caqui:        #C3B091;   /* caqui clásico */
-            --caqui-claro:  #E8DFC8;   /* caqui claro (fondos) */
-            --caqui-oscuro: #8B7D5A;   /* caqui oscuro (bordes/texto) */
-            --blanco:       #F7F5EF;   /* crema casi blanco */
+            /* Paleta verde + blanco */
+            --verde-oscuro: #1B5E20;   /* verde profundo */
+            --verde-medio:  #2E7D32;   /* verde bosque */
+            --verde-claro:  #E8F5E9;   /* verde muy suave (fondos) */
+            --verde-borde:  #A5D6A7;   /* verde suave para bordes */
+            --blanco:       #FFFFFF;   /* blanco puro */
+            --blanco-hueso: #F7FAF7;   /* blanco con tinte verde */
+            --texto:        #1a1a1a;
             --sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
             --borde-radio: 10px;
         }
@@ -26,8 +26,8 @@
 
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #2E7D32;
-            color: #1a1a1a;
+            background: var(--verde-oscuro);
+            color: var(--texto);
             padding: 20px;
             display: flex;
             justify-content: center;
@@ -42,13 +42,13 @@
             border-radius: var(--borde-radio);
             box-shadow: var(--sombra);
             overflow: hidden;
-            border: 1px solid var(--caqui);
+            border: 1px solid var(--verde-borde);
         }
 
         /* Encabezado */
         .encabezado {
             background: var(--blanco);
-            border-bottom: 4px solid var(--caqui-oscuro);
+            border-bottom: 4px solid var(--verde-oscuro);
         }
 
         .imagen-encabezado {
@@ -61,8 +61,8 @@
         .pestañas {
             display: flex;
             align-items: center;
-            background: var(--caqui-oscuro);
-            border-bottom: 2px solid var(--caqui);
+            background: var(--verde-oscuro);
+            border-bottom: 2px solid var(--verde-medio);
             flex-wrap: wrap;
         }
 
@@ -70,12 +70,12 @@
             padding: 14px 24px;
             cursor: pointer;
             font-weight: 600;
-            color: var(--caqui-claro);
+            color: var(--blanco);
             border: none;
             background: transparent;
             font-size: 1rem;
             transition: background 0.3s, color 0.3s;
-            border-right: 1px solid rgba(0,0,0,0.05);
+            border-right: 1px solid rgba(255,255,255,0.15);
         }
 
         .pestaña:hover {
@@ -84,9 +84,9 @@
         }
 
         .pestaña.activa {
-            background: var(--verde-oscuro);
-            color: var(--blanco);
-            border-bottom: 3px solid var(--caqui);
+            background: var(--blanco);
+            color: var(--verde-oscuro);
+            border-bottom: 3px solid var(--verde-medio);
         }
 
         /* Formulario */
@@ -97,10 +97,10 @@
 
         .seccion {
             margin-bottom: 25px;
-            border: 1px solid var(--caqui);
+            border: 1px solid var(--verde-borde);
             border-radius: var(--borde-radio);
             padding: 20px;
-            background: var(--caqui-claro);
+            background: var(--verde-claro);
             position: relative;
         }
 
@@ -143,13 +143,13 @@
         .campo select,
         .campo textarea {
             padding: 9px 12px;
-            border: 1.5px solid var(--caqui);
+            border: 1.5px solid var(--verde-borde);
             border-radius: 6px;
             font-size: 0.95rem;
             font-family: inherit;
             transition: border-color 0.3s, box-shadow 0.3s;
             background: var(--blanco);
-            color: #1a1a1a;
+            color: var(--texto);
         }
 
         .campo input:focus,
@@ -161,7 +161,7 @@
         }
 
         .campo input[readonly] {
-            background-color: var(--caqui-claro);
+            background-color: var(--verde-claro);
             cursor: not-allowed;
             font-weight: 700;
             color: var(--verde-oscuro);
@@ -215,9 +215,9 @@
             width: 100%;
             justify-self: end;
             padding: 15px;
-            border: 1px solid var(--caqui);
+            border: 1px solid var(--verde-borde);
             border-radius: 12px;
-            background: var(--caqui-claro);
+            background: var(--blanco);
             text-align: center;
             align-self: start;
             margin-top: 0;
@@ -244,8 +244,8 @@
             width: 100%;
             height: 240px;
             border-radius: 10px;
-            border: 2px dashed var(--caqui);
-            background: linear-gradient(135deg, var(--caqui-claro), var(--blanco));
+            border: 2px dashed var(--verde-borde);
+            background: linear-gradient(135deg, var(--verde-claro), var(--blanco));
             object-fit: cover;
             display: block;
             margin-bottom: 10px;
@@ -256,7 +256,7 @@
             padding: 8px;
             font-size: 0.85rem;
             border-radius: 8px;
-            border: 1px solid var(--caqui);
+            border: 1px solid var(--verde-borde);
             background: var(--blanco);
         }
 
@@ -292,7 +292,7 @@
             flex-wrap: wrap;
             margin-top: 20px;
             padding-top: 20px;
-            border-top: 2px solid var(--caqui);
+            border-top: 2px solid var(--verde-borde);
         }
 
         .btn {
@@ -324,13 +324,13 @@
         }
 
         .btn-secundario {
-            background: var(--caqui);
+            background: var(--blanco);
             color: var(--verde-oscuro);
+            border: 2px solid var(--verde-medio);
         }
 
         .btn-secundario:hover {
-            background: var(--caqui-oscuro);
-            color: var(--blanco);
+            background: var(--verde-claro);
         }
 
         .btn-peligro {
@@ -364,8 +364,8 @@
 
         .contador {
             font-weight: 700;
-            color: var(--verde-oscuro);
-            background: var(--caqui-claro);
+            color: var(--blanco);
+            background: var(--verde-oscuro);
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.95rem;
@@ -385,7 +385,7 @@
         th, td {
             padding: 12px 10px;
             text-align: left;
-            border-bottom: 1px solid var(--caqui);
+            border-bottom: 1px solid var(--verde-borde);
         }
 
         th {
@@ -396,7 +396,7 @@
         }
 
         tbody tr:hover {
-            background: var(--caqui-claro);
+            background: var(--verde-claro);
         }
 
         .tabla-vacia {
@@ -412,7 +412,7 @@
             border-radius: 12px;
             font-size: 0.75rem;
             font-weight: 600;
-            background: var(--caqui);
+            background: var(--verde-claro);
             color: var(--verde-oscuro);
         }
 
@@ -489,7 +489,7 @@
             max-height: 500px;
             overflow-y: auto;
             border-radius: 8px;
-            border: 1px solid var(--caqui);
+            border: 1px solid var(--verde-borde);
         }
 
         .tabla-scroll::-webkit-scrollbar {
@@ -497,19 +497,19 @@
         }
 
         .tabla-scroll::-webkit-scrollbar-track {
-            background: var(--caqui-claro);
+            background: var(--verde-claro);
             border-radius: 4px;
         }
 
         .tabla-scroll::-webkit-scrollbar-thumb {
-            background: var(--caqui);
+            background: var(--verde-borde);
             border-radius: 4px;
         }
 
         .aviso-local {
             padding: 10px 20px;
-            border-bottom: 1px solid var(--caqui);
-            background: var(--caqui-claro);
+            border-bottom: 1px solid var(--verde-borde);
+            background: var(--verde-claro);
             color: var(--verde-oscuro);
             font-size: 0.9rem;
         }
@@ -540,7 +540,7 @@
                     <div class="seccion-titulo">DATOS INFORMATIVOS</div>
                     <aside class="bloque-foto">
                         <label for="fotoEstudiante">Fotografía</label>
-                        <img id="fotoPreview" class="foto-preview" alt="Vista previa" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='240'%3E%3Crect width='300' height='240' fill='%23E8DFC8'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='22' fill='%232E7D32' font-family='Arial'%3EFoto%3C/text%3E%3C/svg%3E">
+                        <img id="fotoPreview" class="foto-preview" alt="Vista previa" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='240'%3E%3Crect width='300' height='240' fill='%23E8F5E9'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='22' fill='%231B5E20' font-family='Arial'%3EFoto%3C/text%3E%3C/svg%3E">
                         <input type="file" id="fotoEstudiante" class="input-foto" accept="image/*" onchange="previsualizarFoto(event)">
                     </aside>
                     <div class="fila fila-apellidos">
@@ -901,8 +901,4 @@
                             <label>Con Tratamiento</label>
                             <div class="grupo-opciones">
                                 <label class="opcion"><input type="radio" name="madreTratamiento" value="SI"> SI</label>
-                                <label class="opcion"><input type="radio" name="madreTratamiento" value="NO" checked> NO</label>
-                            </div>
-                        </div>
-                        <div class="campo" style="flex: 2 1 250px;">
-                           
+                                <label class="opcion"><input type="radio" name="madreTratamiento" value="NO"
